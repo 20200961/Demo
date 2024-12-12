@@ -5,11 +5,12 @@ import jakarta.persistence.*; // 기존 javax 후속 버전
 
 @Getter // setter는 없음(무분별한 변경 x)
 @Entity // 아래 객체와 DB 테이블을 매핑. JPA가 관리
-@Table(name = "board") // 테이블 이름을 지정. 없는 경우 클래스이름으로 설정
+@Table(name = "member") // 테이블 이름을 지정. 없는 경우 클래스이름으로 설정
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 외부 생성자 접근 방지
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 1씩 증가
+    
     @Column(name = "id", updatable = false) // 수정 x
     private Long id;
     @Column(name = "name", nullable = false) // null x
@@ -20,9 +21,9 @@ public class Member {
     private String password = "";
     @Column(name = "age", nullable = false)
     private String age = "";
-    @Column(name = "mobile", nullable = false)
+    @Column(name = "mobile", nullable = true)
     private String mobile = "";
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = true)
     private String address = "";
 
     @Builder // 생성자에 빌더 패턴 적용(불변성)

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 // import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
-import com.example.demo.model.service.AddArticleRequest;
 // import com.example.demo.model.service.AddArticleRequest;
 import com.example.demo.model.service.AddBoardRequest;
 import com.example.demo.model.service.BlogService; // 최상단 서비스 클래스 임포트

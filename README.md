@@ -18,4 +18,30 @@
 로 수정하고 testdb.html에서 각 데이터 베이스가 출력되도록 data4,5,6 을 나누어 출력
 \project\demo\src\main\resources\templates\testdb.html
 
-깃허브 충돌때문에 새로 만들었습니다.. ㅠㅠ
+
+9주차 연습문제
+import jakarta.validation.constraints.*;을 import한 후
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z0-9가-힣]+$", message = "이름은 특수문자를 포함할 수 없습니다.")
+    private String name;
+
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotBlank
+    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z]).{8,}")
+    private String password;
+
+    @NotBlank
+    @Min(value = 19, message = "나이는 19세 이상이어야 합니다.") // 나이 최소 19
+    @Max(value = 90, message = "나이는 90세 이하이어야 합니다.")
+    private String age;
+
+    private String mobile;
+    
+    private String address;
+    을 통해 어노테이션을 추가하여 회원가입 조건에 맞게 한다. 
+    member.java에 moblie과 address의 nullable = "true"로 설정하여 공백이 가능하게 하였다.
+
+10주차 연습문제

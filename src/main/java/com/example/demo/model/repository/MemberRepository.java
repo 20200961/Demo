@@ -6,5 +6,5 @@ import com.example.demo.model.domain.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-Member findByEmail(String email);
+    Member findByEmail(String email);
 }
