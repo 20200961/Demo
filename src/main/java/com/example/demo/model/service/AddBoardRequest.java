@@ -13,7 +13,7 @@ public class AddBoardRequest {
     private String count;
     private String likec;
     private String newdate;
-
+    
     public Board toEntity() { // Board 객체 생성
         return Board.builder()
             .title(title)

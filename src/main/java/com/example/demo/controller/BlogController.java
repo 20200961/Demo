@@ -66,7 +66,7 @@ public class BlogController {
     // return "board_list"; // .HTML 연결
     // }
     @GetMapping("/board_view/{id}") // 게시판 링크 지정
-    public String board_view(Model model, @PathVariable Long id) {
+    public String board_view(Model model, @PathVariable Long id,HttpSession session) {
         Optional < Board > list = blogService.findById(id); // 선택한 게시판 글
         if (list.isPresent()) {
             model.addAttribute("boards", list.get()); // 존재할 경우 실제 Article 객체를 모델에 추가
@@ -74,6 +74,13 @@ public class BlogController {
             // 처리할 로직 추가 (예: 오류 페이지로 리다이렉트, 예외 처리 등)
             return "/error_page/article_error"; // 오류 처리 페이지로 연결
         }
+        String email = (String) session.getAttribute("email");
+        if (email == null) {
+            return "redirect:/member_login"; // 로그인 페이지로 리다이렉션
+        }
+    
+        model.addAttribute("email", email);
+
         return "board_view"; // .HTML 연결
     }
     @DeleteMapping("/api/board_delete/{id}")
@@ -85,7 +92,7 @@ public class BlogController {
     public String board_edit(Model model, @PathVariable Long id) {
         Optional < Board > list = blogService.findById(id); // 선택한 게시판 글
         if (list.isPresent()) {
-            model.addAttribute("board", list.get()); // 존재하면 Article 객체를 모델에 추가
+            model.addAttribute("board", list.get()); // 존재하면 board 객체를 모델에 추가
         } else {
             // 오류 처리 페이지로 리다이렉트 또는 예외 처리
             return "/error_page/article_error"; // 오류 처리 페이지로 연결
@@ -99,10 +106,17 @@ public class BlogController {
     }
     @GetMapping("/board_write")
     public String board_write() {
-        return "board_write";
+    return "board_write";
     }
+
     @PostMapping("/api/boards") // 글쓰기 게시판 저장
-    public String addboards(@ModelAttribute AddBoardRequest request) {
+    public String addboards(@ModelAttribute AddBoardRequest request,HttpSession session) {
+        String email = (String) session.getAttribute("email");
+        if (email == null || email.isEmpty()) {
+            return "redirect:/member_login"; // 로그인 페이지로 리다이렉션
+        }
+
+        request.setUser(email);
         blogService.save(request);
         return "redirect:/board_list"; // .HTML 연결
     }

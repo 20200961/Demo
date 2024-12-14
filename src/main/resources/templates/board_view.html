@@ -48,21 +48,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="board : ${boards}">
-                <td th:text="${board.content}"></td>
-                </tr>
-                </tbody>
-                <tr th:each="board : ${boards}">
-                    <td>
-                    <!-- 수정 버튼 -->
-                    <a class="btn btn-warning" th:href="@{/board_edit/{id}(id=${board.id})}">수정</a>
-                    <!-- 삭제 버튼 -->
-                    <form th:action="@{/api/board_delete/{id}(id=${board.id})}" method="post" style="display:inline;">
-                    <input type="hidden" name="_method" value="delete">
-                    <button type="submit" class="btn btn-danger">삭제</button>
-                    </form>
-                    </td>
-                </tr>
+                    <tr th:each="board : ${boards}">
+                        <td th:text="${board.content}"></td>
+                    </tr>
+                    <tr th:each="board : ${boards}">
+                        <td>
+                            <!-- 수정 및 삭제 버튼 작성자와 로그인한 사용자의 이메일이 같을때만 띄워짐-->
+                            <div th:if="${board.user  email}">
+                                <!-- 수정 버튼 -->
+                                <a class="btn btn-warning" th:href="@{/board_edit/{id}(id=${board.id})}">수정</a>
+                                <!-- 삭제 버튼 -->
+                                <form th:action="@{/api/board_delete/{id}(id=${board.id})}" method="post" style="display:inline;">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit" class="btn btn-danger">삭제</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
             </table>
         </div>
 

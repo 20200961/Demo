@@ -14,7 +14,7 @@
         <!-- 게시글 추가 폼 -->
         <div class="mt-4">
             <h2>게시글 추가</h2>
-            <form th:action="@{/api/articles}" method="post" name="content">
+            <form th:action="@{/api/boards}" method="post" name="content">
             <div class="form-group">
             <label for="title">제목:</label>
             <input type="text" class="form-control" id="title" name="title" required>
@@ -25,8 +25,8 @@
         </div>
         <button type="submit" class="btn btn-primary">글 저장하기</button>
     </div>
-    <input type="hidden" id="user" name="user" value="GUEST">
-    <input type="hidden" id="newdate" name="newdate" value="오늘날짜">
+    <input type="hidden" id="user" name="user" th:value="${email}">
+    <input type="hidden" id="newdate" name="newdate" value="2024-12-14">
     <input type="hidden" id="count" name="count" value="0">
     <input type="hidden" id="likec" name="likec" value="0">
     </form>
