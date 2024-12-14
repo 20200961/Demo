@@ -33,6 +33,11 @@ public class FileController {
             String sanitizedEmail = email.replaceAll("[^a-zA-Z0-9]", "_");
             Path filePath = uploadPath.resolve(sanitizedEmail + ".txt"); // .txt 파일로 설정
 
+            int counter = 1;
+            while (Files.exists(filePath)) {
+                filePath = uploadPath.resolve(sanitizedEmail + "(" + counter + ").txt");
+                counter++;
+            }
             // 파일에 내용 쓰기
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
                 writer.write("메일 제목: " + subject); // 제목 작성

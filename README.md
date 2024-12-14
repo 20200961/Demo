@@ -18,6 +18,10 @@
 로 수정하고 testdb.html에서 각 데이터 베이스가 출력되도록 data4,5,6 을 나누어 출력
 \project\demo\src\main\resources\templates\testdb.html
 
+5주차 연습문제
+
+6주차 연습문제
+
 7주차 연습문제
 blogcontroller에 다음 코드를 넣어 맵핑을 지정한다.
 @PutMapping("/api/board_edit/{id}")
@@ -132,4 +136,45 @@ import jakarta.validation.constraints.*;을 import한 후
 </div>
 
 11주차 연습문제
+- 2명이상 로그인 되도록 코드를 수정
+먼저 memberController내에 login_check 부분을 다음과 같이 수정한다
+PostMapping("/api/login_check") // 로그인(아이디, 패스워드) 체크
+public String checkMembers(@ModelAttribute AddMemberRequest request, Model model, HttpSession session) {
+    try {
+        // 이메일과 비밀번호로 로그인 체크
+        Member member = memberService.loginCheck(request.getEmail(), request.getPassword());
+        if (member == null) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+        // 세션 설정
+        String sessionId = UUID.randomUUID().toString(); // 임의의 고유 ID 생성
+        String email = request.getEmail(); // 이메일 가져오기
+        session.setAttribute("userId", sessionId); // 세션에 사용자 ID 저장
+        session.setAttribute("email", email); // 세션에 이메일 저장
+        // 모델에 회원 정보 추가 (필요하면)
+        model.addAttribute("member", member);
+        return "redirect:/board_list"; // 로그인 성공 후 게시판으로 이동
+    } catch (IllegalArgumentException e) {
+        // 에러 메시지를 모델에 추가하여 로그인 페이지에 표시
+        model.addAttribute("error", e.getMessage());
+        return "login"; // 로그인 실패 시 로그인 페이지로 이동
+    }
+다음 코드로 로그인한 회원의 UUID를 생성하고
+String sessionId = UUID.randomUUID().toString();
+이를 저장한다
+session.setAttribute("userId", sessionId)
+
+로그아웃시에는
+session.invalidate();
+으로 기존세션을 삭제한다.
+
+여러 2명이상의 다른아이디로 로그인을 했을때 JsessionId는 새롭게 바뀐다
+
+-동일 파일 업로드 시에 다른 이름으로 업로드
+다음 코드를 @PostMapping("/upload-email")에 추가하여 동일 파일이 있는지 검사 후 있으면 파일명(1),파일명(2) 이런식으로 업로드 되도록 한다
+int counter = 1;
+    while (Files.exists(filePath)) {
+        filePath = uploadPath.resolve(sanitizedEmail + "(" + counter + ").txt");
+        counter++;
+        }
 
