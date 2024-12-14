@@ -12,7 +12,7 @@
     <div class="container">
         <h1 class="mt-5">블로그 게시판</h1>
         
-        <!-- 게시글 리스트-->
+        <!-- 게시글 리스트 -->
         <div class="mt-5">
             <h2>게시글 목록</h2>
             <table class="table table-bordered">
@@ -31,7 +31,7 @@
                         <td th:text="${board.id}"></td>
                         <td>
                             <a th:href="@{/board_view/{id}(id=${board.id})}">
-                            <span th:text="${board.title}"></span>
+                                <span th:text="${board.title}"></span>
                             </a>
                         </td>
                         <td th:text="${board.user}"></td>
@@ -41,11 +41,13 @@
                     </tr>
                 </tbody>
             </table>
+
+            <!-- 글 내용 및 수정/삭제 -->
             <table class="table table-bordered">
                 <thead>
-                <tr>
-                <th>글내용</th>
-                </tr>
+                    <tr>
+                        <th>글내용</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr th:each="board : ${boards}">
@@ -53,11 +55,8 @@
                     </tr>
                     <tr th:each="board : ${boards}">
                         <td>
-                            <!-- 수정 및 삭제 버튼 작성자와 로그인한 사용자의 이메일이 같을때만 띄워짐-->
-                            <div th:if="${board.user  email}">
-                                <!-- 수정 버튼 -->
+                            <div th:if="${board.user == email}">
                                 <a class="btn btn-warning" th:href="@{/board_edit/{id}(id=${board.id})}">수정</a>
-                                <!-- 삭제 버튼 -->
                                 <form th:action="@{/api/board_delete/{id}(id=${board.id})}" method="post" style="display:inline;">
                                     <input type="hidden" name="_method" value="delete">
                                     <button type="submit" class="btn btn-danger">삭제</button>
@@ -65,9 +64,9 @@
                             </div>
                         </td>
                     </tr>
+                </tbody>
             </table>
         </div>
-
     </div>
 </body>
 

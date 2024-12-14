@@ -19,6 +19,7 @@
 \project\demo\src\main\resources\templates\testdb.html
 
 5주차 연습문제
+BlogController 각 리다이렉트로 전환 후 정상동작 확인
 
 6주차 연습문제
 

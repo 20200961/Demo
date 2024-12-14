@@ -12,10 +12,10 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 1씩 증가
     @Column(name = "id", updatable = false) // 수정 x
     private Long id;
-    @Column(name = "title", nullable = false) // null x
-    private String title = "";
     @Column(name = "content", nullable = false)
     private String content = "";
+    @Column(name = "title", nullable = false) // null x
+    private String title = "";
     @Column(name = "user", nullable = false)
     private String user = "";
     @Column(name = "newdate", nullable = false)
@@ -25,17 +25,17 @@ public class Board {
     @Column(name = "likec", nullable = false)
     private String likec = "";
     @Builder // 생성자에 빌더 패턴 적용(불변성)
-    public Board(String title, String content,String user,String count, String likec, String newdate){
-    this.title = title;
+    public Board(String content,String title,String user,String count, String likec, String newdate){
     this.content = content;
+    this.title = title;
     this.user = user;
     this.count = count;
     this.likec = likec;
     this.newdate = newdate;
     }
-    public void update(String title, String content,String user,String count, String likec, String newdate) { // 현재 객체 상태 업데이트
-        this.title = title;
+    public void update(String content,String title,String user,String count,String likec,String newdate) { // 현재 객체 상태 업데이트
         this.content = content;
+        this.title = title;
         this.user = user;
         this.count = count;
         this.likec = likec;

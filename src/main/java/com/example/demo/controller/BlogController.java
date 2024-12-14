@@ -51,7 +51,7 @@ public class BlogController {
     // @PutMapping("/api/article_edit/{id}")
     // public String updateArticle(@PathVariable Long id, @ModelAttribute AddArticleRequest request) {
     //     blogService.update(id, request);
-    //     return "redirect:/article_list"; 
+    //     return "redirect:/article_list";
     // }
 
     @DeleteMapping("/api/article_delete/{id}")
@@ -83,6 +83,7 @@ public class BlogController {
 
         return "board_view"; // .HTML 연결
     }
+    
     @DeleteMapping("/api/board_delete/{id}")
     public String deleteBoard(@PathVariable Long id) {
         blogService.delete(id);

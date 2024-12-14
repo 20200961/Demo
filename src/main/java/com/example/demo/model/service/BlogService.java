@@ -36,8 +36,8 @@ public class BlogService {
     public void update(Long id, AddBoardRequest request) {
         Optional<Board> optionalBoard = blogRepository.findById(id); // 단일글조회
         optionalBoard.ifPresent(board -> { //값이있으면
-            board.update(request.getTitle(), request.getContent(),request.getUser()
-            ,request.getNewdate(), request.getCount(), request.getLikec()); // 값을수정
+            board.update(request.getContent(),request.getTitle(),request.getUser()
+            ,request.getCount(), request.getLikec(),request.getNewdate()); // 값을수정
             blogRepository.save(board); // Board 객체에저장
         });
     }
